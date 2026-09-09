@@ -1,0 +1,98 @@
+---
+sidebar_position: 2
+---
+
+# Les bases de Hytale
+Avant de jouer en UHC, il est conseillé de jouer un peu en survie classique pour se familiariser avec les mécaniques de base de 
+Hytale. Cependant, il est tout de même possible de jouer directement en UHC et ce guide vous permettra de comprendre les bases 
+du jeu.
+
+### Les zones
+Dans Hytale, il existe actuelement 4 zones, numérotés de 1 à 4 par ordre de difficulté croissante. Chaque zone contient un ensemble
+de biome, de monstres spécifiques et de minerais. 
+
+La zone 1 est une zone verdoyante assez classique. C'est la zone où commencent les joueurs sur Hytale et c'est donc la zone ou les
+monstres sont les plus faible. On y trouve du cuivre et du fer.
+
+La zone 2 est une zone désertique, plus difficile que la première. On y trouve des dunes de sable, des canyons et  des oasis. On y 
+trouve aussi le thorium.
+
+La zone 3 est une zone enneigée composée de forêts de taïga, de montagnes et de glaciers. On y trouve le cobalt et l'argent.
+
+La zone 4 est la zone la plus difficile actuellement accessible. C'est une zone volcanique en surface, avec des coulées de lave,
+des champs de cendres et des jungles souterraines sous certains volcans. On y trouve de l'adamantite.
+
+### Les ressources importantes
+Les 3 ressources les plus importantes à récolter sont les minerais, le cuir et les scraps, car ce sont eux qui permettent de fabriquer les armes
+et les armures.
+
+#### Les minerais
+Les minerais sont ici classés par ordre de puissance croissante : le cuivre est le minerai le plus faible, puis le fer, le thorium,
+le cobalt et enfin l'adamantite. Le thorium et le cobalt sont des minerais de niveau équivalent.
+
+<div style={{display: 'flex', alignItems: 'center', gap: '2rem', flexWrap: 'wrap', margin: '1.5rem 0'}}>
+  <ul style={{flex: '0 1 200px'}}>
+    <li><strong>Zone 1 :</strong> Cuivre et Fer</li>
+    <li><strong>Zone 2 :</strong> Thorium</li>
+    <li><strong>Zone 3 :</strong> Cobalt</li>
+    <li><strong>Zone 4 :</strong> Adamantite</li>
+  </ul>
+  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', flex: '1 1 400px'}}> 
+    <div style={{textAlign: 'center'}}>
+      <img src={require('./img/copper.png').default} width="60" /><br/>Cuivre
+    </div>
+    <span style={{fontSize: '1.3rem'}}>→</span>
+    <div style={{textAlign: 'center'}}>
+      <img src={require('./img/iron.png').default} width="60" /><br/>Fer
+    </div>
+    <span style={{fontSize: '1.3rem'}}>→</span>
+    <div style={{display: 'flex', flexDirection: 'column', gap: '0.4rem', alignItems: 'center'}}>
+      <div style={{textAlign: 'center'}}>
+        <img src={require('./img/thorium.png').default} width="60" /><br/>Thorium
+      </div>
+      <div style={{textAlign: 'center'}}>
+        <img src={require('./img/cobalt.png').default} width="60" /><br/>Cobalt
+      </div>
+    </div>
+    <span style={{fontSize: '1.3rem'}}>→</span>
+    <div style={{textAlign: 'center'}}>
+      <img src={require('./img/adamantie.png').default} width="60" /><br/>Adamantite
+    </div>
+  </div>
+</div>
+
+#### La peau et le cuir
+Il existe 3 types de cuir que l'on obtient en transformant des peaux sur le chevalet de tannage : le cuir léger, le cuir moyen
+et le cuir lourd. Le type de peau récoltée dépend de la taille de l'animal tué mais on peut aussi en trouver directement dans 
+des coffres de structure.
+
+| | Type de peau | Quels animaux |
+|:---:|---|---|
+| <img src={require('./img/light_hide.png').default} alt="Light Hide" width="60" /> | **Light hide** | Cochons, sangliers, cerfs, vaches, poules, rats, lapins-cornus. |
+| <img src={require('./img/medium_hide.png').default} alt="Medium Hide" width="60" /> | **Medium hide** | Loups, chats à dents de sabre, hyènes, hommes poissons, grenouilles de lave. |
+| <img src={require('./img/heavy_hide.png').default} alt="Heavy Hide" width="60" /> | **Heavy hide** | Ours, mosshorns, yétis. |
+
+#### Les scraps
+Les scraps sont des matériaux textiles récoltés sur des monstres ou trouvables dans des coffres de structure.
+
+| | Scrap | Où les trouver |
+|:---:|---|---|
+| <img src={require('./img/linen_scrap.png').default} alt="Linen Scrap" width="80" /> | **Linen Scrap** | Sur les morts-vivants, ou dans des coffres. |
+| <img src={require('./img/shadoweave_scrap.png').default} alt="Shadoweave Scrap" width="80" /> | **Shadoweave Scrap** | Sur les barbares de la zone 3, ou dans les coffres de la zone 3. |
+| <img src={require('./img/cindercloth_scrap.png').default} alt="Cindercloth Scrap" width="80" /> | **Cindercloth Scrap** | Sur les morts-vivants de la zone 4, ou dans les coffres de la zone 4. |
+
+Dans le cas de l'armure en thorium, il est nécessaire de récupérer en plus des sacs de venin qui sont obtenable en tuant des araignés,
+des hommes poissons dans les marais ou dans des coffres de structure    .
+
+### La régénération de vie
+Les joueurs sur Hytale ne possèdent pas de jauge de faim : c'est directement la nourriture consommée qui permet de régénérer de la
+vie, via des effets temporaires de régénération et de boost de vie. Plus un plat est élaboré, plus il redonne de vie et plus ses effets 
+sont puissants et durables.
+
+| Catégorie | Aliments | Vie restaurée | Effets | Durée |
+|---|---|:---:|---|:---:|
+| **Fruits et légumes simples** | Baies, carottes, pommes, aubergine, citrouille, salade ... | 5% | Régénération I | 45s |
+| **Aliments simples cuits** | Légume rôti, poisson rôti, viande rôtie. | 5% | Régénération I, Boost de vie I | 45s |
+| **Plats simples** | Brochette de viande, de légumes, de fruits ou de champignons, salade de champignons, salade de baies. | 10% | Régénération II, Boost de vie II | 2min30 |
+| **Plats élaborés** | Tarte aux pommes, tarte à la citrouille, tarte à la viande, salade César. | 15% | Régénération III, Boost de vie III | 6min |
+| **Autres préparations** | Pain, fromage, pop-corn. | 15% | - | - |

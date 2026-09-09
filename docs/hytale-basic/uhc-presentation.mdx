@@ -1,0 +1,53 @@
+---
+sidebar_position: 1
+---
+
+# Présentation UHC
+UHC est l'abréviation de *Ultra Harcore*, c'est un mode de jeu classique de Minecraft généralement tourné comme un battle royale où 
+le but est donc d'être le dernier survivant. **Moai UHC** est un serveur qui propose ce mode de jeu, mais sur **Hytale**, avec des règles 
+et des mécaniques adaptées à ce jeu.
+
+### Objectif
+
+L'objectif d'une partie d'UHC est simple : **être le dernier joueur ou la dernière équipe encore en vie**. Pour y parvenir, les
+joueurs doivent explorer la carte, récolter des ressources, se faire un équipement et tuer les autres joueurs.
+
+### Déroulement d'une partie
+Au début d'une partie, tous les joueurs sont lâchés au centre d'une carte générée aléatoirement et dont la taille est limitée par une 
+bordure. Les joueurs disposent alors d'un temps de préparation pour explorer l'environnement, récolter des ressources et se préparer 
+à la suite de la partie.
+
+Une fois cette période écoulée, le PvP est activé. Les joueurs peuvent alors s'entretuer mais la partie continue de se dérouler 
+normalement : il est toujours possible d'explorer et de récolter des ressources.
+ 
+Après un certain temps, la bordure de la carte va commencer à réduire, elle est matérialisée par des champs de force (cf. image ci-dessous). Celle-ci va se rapprocher du centre 
+de la carte, réduisant progressivement la zone de jeu et forçant donc les joueurs à se rapprocher les uns des autres.
+
+<div align="center">
+  <img src={require('./img/worldborder.gif').default} alt="World Border" width="500" />
+</div>
+
+La partie se poursuit alors jusqu'à ce qu'il ne reste plus qu'un joueur ou une équipe en vie, qui remporte la partie.
+
+:::warning
+
+Les durées de chaque étape et les paramètres de la bordure sont configurables par le host. Le déroulement exact peut donc varier d'une partie à l'autre.
+
+:::
+
+### Hytale adapté à l'UHC
+Certaines mécaniques de Hytale sont adaptées pour le mode UHC. 
+
+* Les marqueurs de joueur ne sont pas visibles sur la carte.
+* Les portails ne peuvent pas être utilisés.
+* Les joueurs ne peuvent pas cacher leur armure aux autres joueurs.
+* Toutes les tables de craft sont au niveau maximal par défaut.
+* Les fours ne sont pas améliorables, sont 30% plus rapides qu'au niveau 1 vanilla et sont de taille 3x3.
+* Les chevalets de tannage ne sont pas améliorables, sont 50% plus rapides qu'au niveau 1 vanilla et sont de taille 3x3.
+* Les fours et les chevalets de tannage peuvent être stackés par 5.
+
+:::warning
+
+Pour le moment il n'y a pas de modification de la régénération de la vie ce qui fait que le mode de jeu n'est pas réellement ultra hardcore.
+
+:::
