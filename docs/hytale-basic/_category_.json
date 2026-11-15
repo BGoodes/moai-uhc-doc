@@ -2,6 +2,7 @@
   "label": "Jouer en UHC",
   "position": 2,
   "link": {
-    "type": "generated-index"
+    "type": "generated-index",
+    "slug": "/category/hytale-basic"
   }
 }

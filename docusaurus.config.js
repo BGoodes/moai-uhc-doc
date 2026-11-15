@@ -22,13 +22,7 @@ const config = {
   // Set the production url of your site here
   url: 'https://your-docusaurus-site.example.com',
   // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Moai UHC', // Usually your GitHub org/user name.
-  projectName: 'hytale-uhc', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
@@ -47,7 +41,7 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
-          // editUrl: 'https://github.com/BGoodes/hytale-uhc',
+          editUrl: 'https://github.com/BGoodes/moai-uhc-doc',
         },
         theme: {
           customCss: './src/css/custom.css',
