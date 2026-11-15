@@ -1,0 +1,8 @@
+{
+  "label": "Administrateur serveur",
+  "position": 1,
+  "link": {
+    "type": "doc",
+    "id": "mod/server-admin/intro"
+  }
+}

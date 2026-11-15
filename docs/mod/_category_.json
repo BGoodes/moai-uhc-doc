@@ -1,0 +1,9 @@
+{
+  "label": "Utiliser le mod",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "slug": "/category/mod",
+    "description": "Documentation du mod UHC pour l'installer et l'étendre sur votre propre serveur."
+  }
+}
