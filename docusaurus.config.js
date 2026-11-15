@@ -41,7 +41,7 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
-          editUrl: 'https://github.com/BGoodes/moai-uhc-doc',
+          editUrl: 'https://github.com/BGoodes/moai-uhc-doc/edit/main/',
         },
         theme: {
           customCss: './src/css/custom.css',

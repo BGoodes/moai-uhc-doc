@@ -1,0 +1,32 @@
+name: Signaler un problème dans la documentation
+description: Une erreur, une information manquante ou peu claire.
+title: "[Doc] "
+labels: ["documentation"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page concernée
+      description: Copiez le lien de la page.
+      placeholder: https://...
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Type de problème
+      options:
+        - Information fausse
+        - Information manquante
+        - Pas clair / difficile à comprendre
+        - Faute d'orthographe
+        - Autre
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Qu'est-ce qui ne va pas ? Si vous connaissez la bonne information, indiquez-la ici.
+    validations:
+      required: true
