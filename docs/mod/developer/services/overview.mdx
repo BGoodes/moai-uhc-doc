@@ -1,0 +1,57 @@
+---
+sidebar_position: 1
+---
+
+# Vue d'ensemble
+
+Les services sont les objets partagés du core. Chacun a une responsabilité précise et garde l'état correspondant
+pendant toute la vie du serveur. C'est par eux que vos extensions lisent et modifient la partie.
+
+## Accéder à un service
+
+Les services du core sont accessibles via la classe `UHC` :
+
+```java
+StateService stateService = UHC.get().getStateService();
+TeamService teamService = UHC.get().getTeamService();
+```
+
+Tous les services sont enregistrés dans un `ServiceRegistry`, accessible avec `UHC.get().getServices()`. Il offre
+trois méthodes :
+
+| Méthode                   | Comportement                                                              |
+| ------------------------- | ------------------------------------------------------------------------- |
+| `register(type, service)` | Enregistre un service. Lève une `IllegalStateException` s'il existe déjà. |
+| `get(type)`               | Retourne le service. Lève une `IllegalStateException` s'il n'existe pas.  |
+| `has(type)`               | Indique si un service est enregistré.                                     |
+
+Les services du core sont enregistrés dans le `setup()` du plugin UHC. Comme votre extension dépend du core, ils sont
+disponibles dès votre propre `setup()`.
+
+:::tip
+
+Vous pouvez enregistrer vos propres services dans le registre, par exemple pour partager un état entre
+plusieurs classes de votre extension ou pour partager avec d'autres extensions..
+
+:::
+
+## Les services du core
+
+| Service                                              | Rôle                                                        |
+| ---------------------------------------------------- | ----------------------------------------------------------- |
+| [`ConfigService`](./config.mdx)                      | Gère la configuration de la partie.         |
+| [`StateService`](./state.mdx)                        | Gère l'état de la partie (lobby, en jeu, fin, …).           |
+| [`FlagService`](./flag.mdx)                          | Active ou désactive les règles de jeu (PvP, dégâts, …).     |
+| [`ClockService`](./clock.mdx)                        | Émet un tick chaque seconde.                                |
+| [`PlayerService`](./player.mdx)                      | Gère les participants et la mort par déconnexion.           |
+| [`TeamService`](./team.mdx)                          | Gère les équipes, en lien avec la condition de victoire.    |
+| [`PermissionService`](./permission.mdx)              | Gère les rôles host et spectateur.                          |
+| [`WorldService`](./world.mdx)                        | Donne accès au monde de la partie.                          |
+| [`WorldBorderService`](./world.mdx#bordure-du-monde) | Gère la bordure.                                            |
+| [`HudService`](./hud.mdx)                            | Gère les HUD et les titres.                                 |
+
+## Bonnes pratiques
+
+- Les services sont `synchronized` et peuvent être appelés depuis n'importe quel thread. Les collections
+  qu'ils retournent sont des copies : les modifier n'a aucun effet, passez toujours par le service.
+- Enregistrez vos configs et vos états dans `setup()`, pas dans `start()`.

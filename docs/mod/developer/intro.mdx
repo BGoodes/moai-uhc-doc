@@ -3,4 +3,65 @@ sidebar_position: 1
 ---
 
 # Développeur
-Documentation dev pour ajouter des extensions au mod UHC.
+
+Cette section s'adresse aux développeurs qui veulent étendre le mod UHC : créer un mode de jeu, ajouter un scénario
+ou un module.
+
+:::info
+
+Le mod UHC est écrit en Java pour le serveur Hytale. Cette documentation suppose que vous savez déjà créer un plugin
+Hytale (`JavaPlugin`, `manifest.json`, enregistrement d'événements). Elle ne détaille que ce qui est propre au mod UHC.
+
+:::
+
+## Core et extensions
+
+Le mod est découpé en deux parties.
+
+- **Le core** (`uhc-core`) est un plugin Hytale qui contient tout le socle commun à une partie d'UHC (les états de la
+  partie, l'horloge, les équipes, la bordure, le HUD, les permissions, ...).
+
+- **Les extensions** sont d'autres plugins Hytale qui dépendent du core et s'y accrochent pour changer ou ajouter du
+  comportement : un mode de jeu, un scénario, un module.
+
+Une extension n'a, pour le moment, pas de point d'entrée particulier à implémenter. C'est un plugin Hytale classique qui déclare le core
+comme dépendance dans son `manifest.json` : 
+
+```json
+{
+  "Dependencies": {
+    "fr.bgoodes:UHC": "*"
+  }
+}
+```
+
+:::warning
+
+Cette partie est amenée à changer, il y aura surement un point d'entrée pour déclarer les extensions.
+
+:::
+
+Une fois le core chargé, l'extension accède à tout le mod depuis son `setup()` grâce au singleton `UHC.get()` :
+
+```java
+@Override
+protected void setup() {
+    UHC.get().getConfigService().registerConfig("example", new ExampleConfig());
+    UHC.get().getStateService().replaceGameState(PlayingState.STATE_ID, new ExamplePlayingState());
+}
+```
+
+Le projet `example-uhc` du dépôt est une extension minimale qui sert de référence.
+
+## Comment lire cette documentation
+
+Le core est organisé autour de quelques briques que l'on retrouve dans toutes les extensions :
+
+| Brique         | Rôle                                                                                          |
+| -------------- | --------------------------------------------------------------------------------------------- |
+| **Services**   | Les objets partagés qui portent l'état de la partie (équipes, état, config, ...).             |
+| **Événements** | Les notifications émises par le core, auxquelles une extension peut réagir.                   |
+| **Systèmes**   | Les mécaniques de jeu (mort, condition de victoire, ...).                                     |
+| **Utils**      | Des classes utilitaires (messages, sons, téléportation, ...).                                 |
+
+Les services sont la porte d'entrée de l'API : commencez par la [vue d'ensemble des services](./services/overview.mdx).

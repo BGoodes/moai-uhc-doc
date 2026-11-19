@@ -1,0 +1,16 @@
+---
+sidebar_position: 8
+---
+
+# PermissionService
+
+Le `PermissionService` gère les deux rôles spéciaux d'une partie, **host** et **spectateur**, en s'appuyant sur le
+système de permissions de Hytale. Chaque rôle est un groupe de permissions auquel on ajoute ou retire des joueurs.
+
+| Rôle       | Groupe          | Permissions                                         |
+| ---------- | --------------- | --------------------------------------------------- |
+| Host       | `uhc:Host`      | Définies dans `config.json` (`Host.Permissions`).    |
+| Spectateur | `uhc:Spectator` | Définies dans `config.json` (`Spectator.Permissions`). |
+
+Côté administrateur, les permissions et les rôles spécifiques à l'UHC sont décrits dans la page
+[Permissions](../../server-admin/permissions.mdx).

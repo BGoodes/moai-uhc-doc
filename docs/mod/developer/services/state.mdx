@@ -1,0 +1,58 @@
+---
+sidebar_position: 3
+---
+
+# StateService
+
+Une partie en UHC est une machine à états. Le `StateService` connaît tous les états enregistrés et garde l'état courant. Un
+seul état est actif à la fois.
+
+## Les états du core
+
+| Id         | Classe          | Rôle                                                                              |
+| ---------- | --------------- | --------------------------------------------------------------------------------- |
+| `lobby`    | `LobbyState`    | Attente des joueurs. Autorise les nouveaux joueurs (`NEW_PLAYERS`).               |
+| `starting` | `StartingState` | Compte à rebours de 5 secondes, puis passe à `playing`.                           |
+| `playing`  | `PlayingState`  | La partie : téléporte les joueurs, puis déclenche invincibilité, PvP et bordure.  |
+| `ending`   | `EndingState`   | Fin de partie : PvP et construction activés, puis arrêt du serveur après 60 secondes. |
+
+L'enchaînement normal est `lobby → starting → playing → ending`. Le passage de `lobby` à `starting` est fait par la
+commande du host, et celui de `playing` à `ending` par la condition de victoire.
+
+Les ids sont exposés sous forme de constantes : `LobbyState.STATE_ID`, `PlayingState.STATE_ID`, ...
+
+## Écrire un état
+
+Un état implémente `IGameState` :
+
+```java
+public interface IGameState {
+    void start();                                     // entrée dans l'état
+    default void onClock() {}                         // appelé chaque seconde 
+    default void end() {}                             // sortie de l'état
+    default UHCHud createHud(PlayerRef playerRef) {   // HUD à afficher pendant cet état
+        return null; 
+    } 
+}
+```
+
+## Enregistrer, remplacer, changer d'état
+
+```java
+StateService states = UHC.get().getStateService();
+
+states.registerGameState("my-state", new MyState());                   // nouvel état
+states.replaceGameState(PlayingState.STATE_ID, new MyPlayingState());  // remplace un état existant
+states.changeGameState("my-state");                                    // change d'état
+```
+
+`changeGameState()` appelle `end()` sur l'état courant, active le nouveau, appelle sa méthode `start()`, puis émet un
+`GameStateChangedEvent` avec l'id du nouvel état.
+
+
+:::warning
+
+Utilisez les fonctions `registerGameState()` `replaceGameState()` uniquementdans le `setup()` de votre plugin, pas 
+dans `start()` ou ailleurs.
+
+:::

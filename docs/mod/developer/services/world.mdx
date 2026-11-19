@@ -1,0 +1,47 @@
+---
+sidebar_position: 9
+---
+
+# WorldService et WorldBorderService
+
+Ces deux services concernent le monde de la partie : le premier donne accès au monde, le second gère la bordure.
+
+## WorldService
+
+Il garde une référence vers **le monde de jeu**, celui où se déroule la partie.
+
+```java
+World world = UHC.get().getWorldService().getGameWorld();
+```
+
+## Bordure du monde
+
+Le `WorldBorderService` porte l'état de la bordure. C'est un carré centré sur l'origine : un joueur est dehors dès
+que `|x|` ou `|z|` dépasse le rayon.
+
+```java
+WorldBorderService borderService = UHC.get().getWorldBorderService();
+
+borderService.getRadius();               // rayon courant
+borderService.setRadius(1600);           // fixe le rayon, sans animation
+borderService.shrinkTo(400, 1.5);        // rétrécit vers 400 blocs, à 1,5 bloc par seconde
+borderService.isOutside(position);       // la position (Vector3dc) est-elle hors bordure ?
+```
+
+Par défaut, le rayon est infini. La bordure est inactive tant que `setRadius` n'a pas été appelé (le core le fait
+au début de l'état `playing`).
+
+### Rétrécissement
+
+`shrinkTo(targetRadius, speed)` ne déplace pas la bordure directement : il enregistre une cible et une vitesse en blocs par
+seconde. C'est le `BorderClockListener` qui appelle `update()` à chaque tick de [l'horloge principale](./clock.mdx). Quand la
+cible est atteinte, il émet un `BorderShrunkEvent`.
+
+`setRadius` annule un rétrécissement en cours.
+
+### Dégâts et affichage
+
+Chaque seconde, `BorderClockListener` s'occupe aussi de :
+
+- afficher des particules autour de la bordure pour les joueurs à moins de 20 blocs.
+- infliger `borderDamage` dégâts aux participants qui sont hors bordure.

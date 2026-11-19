@@ -1,0 +1,48 @@
+---
+sidebar_position: 6
+---
+
+# PlayerService
+
+Le `PlayerService` gère deux choses : qui joue la partie (les participants) et qui s'est déconnecté en cours
+de partie.
+
+## Participants
+
+Un participant est un joueur **encore en vie dans la partie**. Un joueur connecté qui n'est pas participant est
+spectateur (ou en attente dans le lobby).
+
+```java
+PlayerService players = UHC.get().getPlayerService();
+
+players.isParticipant(uuid);        // vérifie si le joueur est participant (en vie donc)
+players.getParticipants();          // copie de l'ensemble des UUID
+players.addParticipant(uuid);       // ajoute un joueur, true s'il n'était pas déjà participant.
+players.removeParticipant(uuid);    // retire un joueur, true s'il était participant.
+```
+
+Dans le core :
+
+- `PlayingState.start()` ajoute tous les joueurs connectés comme participants au lancement de la partie.
+- `ParticipantListener` retire un participant quand il meurt. C'est ce retrait qui déclenche l'élimination et,
+  éventuellement, la victoire.
+
+## Déconnexions
+
+Quand un participant se déconnecte, le service enregistre l'instant de la déconnexion. S'il revient, l'entrée est
+supprimée.
+
+```java
+playerService.setDisconnected(uuid);            // enregistre la déconnexion (Instant.now())
+playerService.removeDisconnected(uuid);         // le joueur est revenu
+```
+
+Le `DisconnectTimeoutListener` consulte cette liste à chaque tick de [l'horloge principale](./clock.mdx) : au bout de `disconnectTimeout`
+secondes, le joueur est considéré comme mort et un `ParticipantDeathEvent` est émis pour lui.
+
+`removeParticipant()` supprime aussi l'éventuelle déconnexion en cours.
+
+## Notes
+
+- Le service ne stocke que des `UUID`. Pour retrouver le joueur, utilisez `Universe.get().getPlayer(uuid)`, qui
+  retourne `null` si le joueur est hors ligne.

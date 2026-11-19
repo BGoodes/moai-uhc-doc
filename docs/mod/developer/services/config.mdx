@@ -1,0 +1,26 @@
+---
+sidebar_position: 2
+---
+
+# ConfigService
+
+Le `ConfigService` charge et enregistre la configuration d'une partie dans un seul fichier, `default_uhc.json`, situé
+dans le dossier de données du plugin UHC. Chaque extension y déclare sa propre section, identifiée par un id.
+
+Le service ne conserve pas l'instance. C'est à vous de la garder, par exemple dans un champ de votre plugin, pour la
+relire plus tard.
+
+:::warning
+
+Le fichier n'est écrit que lorsque la section est créée. Si vous ajoutez un champ à une config dans une nouvelle
+version de votre extension, la section existante n'est pas réécrite : le nouveau champ n'apparaît pas dans le fichier.
+
+:::
+
+
+:::info
+
+Il existe une deuxième configuration, `ServerConfig`, stockée dans `config.json`. Elle ne passe pas par le
+`ConfigService` car elle est géré par l'administrateur du serveur et non par les joueurs.
+
+:::

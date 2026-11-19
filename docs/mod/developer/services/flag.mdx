@@ -1,0 +1,24 @@
+---
+sidebar_position: 4
+---
+
+# FlagService
+
+Un **flag** est un interrupteur nommé qui active ou désactive une règle de jeu. Le `FlagService` garde l'ensemble des
+flags actifs. Tous les flags sont **désactivés** au démarrage du serveur.
+
+
+## Les flags du core
+
+Ils sont définis dans l'énumération `UHCFlag` :
+
+| Flag          | Effet si actif                                                                                  |
+| ------------- | ----------------------------------------------------------------------------------------------- |
+| `NEW_PLAYERS` | Un joueur qui n'est pas participant est téléporté au lobby et n'est pas spectateur.             |
+| `BUILD`       | Autorise les joueurs à casser, endommager et poser des blocs.                                   |
+| `DAMAGE`      | Autorise les dégâts. Désactivé, tous les dégâts sont annulés.                                   |
+| `PVP`         | Autorise les dégâts entre joueurs.                                                              |
+| `GAME_ENDED`  | Indique que la partie est terminée : la condition de victoire n'est plus évaluée.               |
+
+
+Le flag n'a aucun effet par lui-même : c'est à votre code (un système, un listener) de le lire avec la fonction `isEnabled()`.

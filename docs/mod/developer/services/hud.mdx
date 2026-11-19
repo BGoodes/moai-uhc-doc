@@ -1,0 +1,40 @@
+---
+sidebar_position: 10
+---
+
+# HudService
+
+Le `HudService` affiche des HUD personnalisés aux joueurs et se souvient de ceux qui sont affichés. Il est aussi en charge
+de l'affichage des titres.
+
+```java
+HudService hudService = UHC.get().getHudService();
+
+hudService.show(playerRef, new MyHud(playerRef));   // affiche (et mémorise) le HUD
+hudService.hide(playerRef, "myext:hud");            // retire le HUD par sa clé
+hudService.get(uuid, "myext:hud");                  // récupère le HUD affiché, ou null
+```
+
+`show()` et `hide()` s'exécutent sur le thread du monde du joueur : ils sont donc sûrs à appeler depuis n'importe quel
+thread, et ne font rien si le joueur n'a pas d'entité valide.
+
+Le core appelle `forget(uuid)` à la déconnexion d'un joueur pour oublier ses HUD et `refreshAll()` à chaque tick de [l'horloge
+principale](./clock.mdx) pour rafraîchir les HUD affichés.
+
+## Le HUD d'un état
+
+Chaque [état de jeu](./state.mdx) peut fournir son propre HUD via `createHud(playerRef)`. Le core utilise une clé commune à
+tous les HUD d'état pour les afficher. Le comportement est le suivant :
+
+- à la connexion d'un joueur, le HUD de l'état courant est affiché.
+- à chaque `GameStateChangedEvent`, le HUD de l'état courant est affiché à tous les joueurs, ce qui remplace le HUD
+  précédent. Si l'état ne fournit pas de HUD, il masque le HUD précédent.
+
+Pour modifier ce que voient les joueurs pendant la partie, il suffit donc de modifier `createHud()` dans votre état.
+
+## Titres
+
+Un `Title` est un ensemble de 3 paramètres : un texte principal, un texte secondaire optionnel, et une durée en secondes (3 par
+défaut).
+
+Un nouveau titre remplace le précédent. Il se masque seul à la fin de sa durée, au prochain `refresh`.

@@ -1,0 +1,31 @@
+---
+sidebar_position: 5
+---
+
+# ClockService
+
+Le `ClockService` est l'horloge de la partie. Il émet un `ClockEvent` **toutes les secondes**, dès le démarrage du
+core. Il n'a pas de méthode publique : on s'en sert en écoutant l'événement.
+
+```java
+getEventRegistry().register(ClockEvent.class, _ -> onClock());
+```
+
+## Ce qui tourne sur l'horloge
+
+Le core lui-même s'appuie sur le tick de l'horloge pour faire tourner certaines mécaniques de jeu.
+
+| Utilisateur                  | Rôle                                                         |
+| ---------------------------- | ------------------------------------------------------------ |
+| `StateService`               | Appelle `onClock()` sur l'état courant (priorité `FIRST`).   |
+| `BorderClockListener`        | Fait rétrécir la bordure et inflige les dégâts hors bordure. |
+| `DisconnectTimeoutListener`  | Élimine les joueurs déconnectés trop longtemps.              |
+| `HudListener`                | Rafraîchit tous les HUD (priorité `LATE`).                   |
+
+## À savoir
+
+- Le tick n'est pas sur le thread du monde. Il est émis depuis l'exécuteur planifié du serveur. Pour toucher au
+  monde ou aux entités, passez par `world.execute(...)`.
+- Une exception dans un listener est loggée (`Failed to dispatch ClockEvent`) et n'arrête pas l'horloge.
+- L'horloge tourne en permanence, même dans le lobby. Pour effectuer une action pendant un état précis, il faut passer
+  par la fonction `onClock()` de l'état en question.
