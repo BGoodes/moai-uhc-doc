@@ -10,7 +10,7 @@ de l'affichage des titres.
 ```java
 HudService hudService = UHC.get().getHudService();
 
-hudService.show(playerRef, new MyHud(playerRef));   // affiche (et mémorise) le HUD
+hudService.show(playerRef, myHud);   // affiche (et mémorise) le HUD
 hudService.hide(playerRef, "myext:hud");            // retire le HUD par sa clé
 hudService.get(uuid, "myext:hud");                  // récupère le HUD affiché, ou null
 ```

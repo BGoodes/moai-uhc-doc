@@ -3,24 +3,61 @@ sidebar_position: 2
 ---
 
 # ConfigService
+Le `ConfigService` est un service qui permet de gérer la configuration d'une partie. Elle permet aux extensions de déclarer 
+leurs propres options, de les lire en jeu et de les stocker à la fin de la partie.
 
-Le `ConfigService` charge et enregistre la configuration d'une partie dans un seul fichier, `default_uhc.json`, situé
-dans le dossier de données du plugin UHC. Chaque extension y déclare sa propre section, identifiée par un id.
+```java
+ConfigService configService = UHC.get().getConfigService();
 
-Le service ne conserve pas l'instance. C'est à vous de la garder, par exemple dans un champ de votre plugin, pour la
-relire plus tard.
+configService.registerConfig(key, myConfig);    // affiche (et mémorise) la configuration
+configService.getConfig(key);                   // récupère la configuration par sa clé
+configService.getConfigs();                     // retourne une map de toutes les configurations enregistrées
+```
+
+Une configuration est un ensemble d'options et une option est constituté d'une clé, d'une valeur et d'un codec.
+
+## Configuration
+
+Une configuration est une classe qui étend de `UHCConfig` et qui est déclarée au niveau du `ConfigService` dans le `setup()`
+de votre extension. C'est un ensemble d'options qui sont regroupées sous un id unique.
+
+Pour ajouter une option à votre configuration, vous devez utiliser la méthode `add()` qui est une méthode protégée de `UHCConfig`.
+
+```java
+
+public static final String CONFIG_ID = "uhc";
+
+public final IntOption invincibilityTime = add(new IntOption("InvincibilityTime", 60, 0, 3600));
+public final IntOption pvpTime = add(new IntOption("PvpTime", 600, 0, 7200));
+
+```
+
+## Options
+
+Le core fournit plusieurs types d'options de base. Vous pouvez aussi créer vos propres types d'options en étendant
+la classe `Option<T>`. Pour créer une nouvelle option, il faut se poser ces trois questions :
+- **Quel est son type et son codec ?** Cela donne le constructeur.
+- **Y a-t-il des valeurs impossibles, des bornes ?** Si oui, on redéfinit `isValid()`.
+- **La valeur peut-elle être modifiée de l'extérieur (liste, ...) ?** Si oui, on redéfinit `copy()`.
+
+Si la réponse est non aux deux dernières questions, la sous-classe se réduit à son constructeur.
+
+## Configuration par défaut
+
+Le `ConfigService` charge et enregistre la configuration de la partie par défaut dans un seul fichier, `default_uhc.json`,
+situé dans le dossier de données du plugin UHC. Chaque extension y déclare sa propre section, identifiée par un id.
 
 :::warning
 
-Le fichier n'est écrit que lorsque la section est créée. Si vous ajoutez un champ à une config dans une nouvelle
-version de votre extension, la section existante n'est pas réécrite : le nouveau champ n'apparaît pas dans le fichier.
+Le fichier n'est écrit que lorsque la section qui représente votre extension est créée. Si vous ajoutez un champ à une config 
+dans une nouvelle version de votre extension, la section existante n'est pas réécrite : le nouveau champ n'apparaît pas dans
+le fichier.
 
 :::
 
-
 :::info
 
-Il existe une deuxième configuration, `ServerConfig`, stockée dans `config.json`. Elle ne passe pas par le
-`ConfigService` car elle est géré par l'administrateur du serveur et non par les joueurs.
+Il existe la configuration `ServerConfig`, stockée dans `config.json`, qui est un cas particulier. Elle ne passe pas par le
+`ConfigService` car elle est gérée par l'administrateur du serveur et non par les joueurs.
 
 :::
