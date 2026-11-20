@@ -2,11 +2,11 @@
 sidebar_position: 9
 ---
 
-# WorldService et WorldBorderService
+# World Service et WorldBorder Service
 
 Ces deux services concernent le monde de la partie : le premier donne accès au monde, le second gère la bordure.
 
-## WorldService
+## World Service
 
 Il garde une référence vers **le monde de jeu**, celui où se déroule la partie.
 
@@ -14,7 +14,7 @@ Il garde une référence vers **le monde de jeu**, celui où se déroule la part
 World world = UHC.get().getWorldService().getGameWorld();
 ```
 
-## Bordure du monde
+## WorldBorder Service
 
 Le `WorldBorderService` porte l'état de la bordure. C'est un carré centré sur l'origine : un joueur est dehors dès
 que `|x|` ou `|z|` dépasse le rayon.
