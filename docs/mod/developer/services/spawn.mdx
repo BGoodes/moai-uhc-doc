@@ -1,0 +1,40 @@
+---
+sidebar_position: 10
+---
+
+# Spawn Service
+
+Le `SpawnService` s'occupe de l'apparition de trouver et de téléporter au point de spawn les joueurs, seuls ou par équipe, 
+au lancement de la partie.
+
+```java
+SpawnService spawnService = UHC.get().getSpawnService();
+
+spawnService.spawn(playerRef, world, location);           // téléporte le joueur (via ParticipantSpawnEvent)
+spawnService.spawnRandom(playerRef, world, radius);       // trouve une position et y téléporte le joueur (async)
+spawnService.spawnTeams(world, teams, radius, together);  // trouve une position pour chaque équipe et téléporte (async)
+spawnService.findLocation(world, playerRef, radius);      // trouve une position à la surface (async)
+```
+
+## Dans le core
+
+`PlayingState.spawnParticipants()` est le seul appelant du service. Il fait apparaître toutes les équipes au lancement
+de la partie, selon deux options de la [configuration](./config.mdx) :
+
+| Option             | Effet                                                                                     |
+| ------------------ | ----------------------------------------------------------------------------------------- |
+| `SpawnCenter`      | Si actif, le rayon vaut `0` : tout le monde apparaît au point de spawn du lobby.          |
+| `TeamSpawnTogether` | Si actif, les membres d'une équipe apparaissent ensemble (valeur de `together`).         |
+
+Sinon, le rayon est celui de la bordure de départ (`BorderStartRadius`).
+
+Pour changer la façon dont les joueurs apparaissent dans votre mode de jeu, vous pouvez surcharger
+`spawnParticipants()` dans une classe qui étend `PlayingState` (voir [StateService](./state.mdx)), ou simplement
+écouter `ParticipantSpawnEvent`.
+
+:::tip
+
+Le futur retourné se termine sur un thread qui n'est pas forcément celui du monde. Si vous voulez agir sur le monde ensuite,
+utilisez `whenCompleteAsync(..., world)` comme le fait `PlayingState`.
+
+:::
