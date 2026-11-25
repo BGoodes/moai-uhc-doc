@@ -3,8 +3,30 @@ sidebar_position: 2
 ---
 
 # Commandes
-Pour devenir l'host de la partie, il faut faire la commande :
-`/uhc host claim`
 
-Pour lancer la partie, il faut faire la commande :
-`/uhc host start`
+Cette page liste les commandes que le host peut utiliser pour gérer sa partie. Pour devenir host, voir
+[Comment devenir Host](./become-host.mdx).
+
+## Commandes UHC
+
+| Commande           | Description                                                           |
+| ------------------ | --------------------------------------------------------------------- |
+| `/uhc host claim`  | Devient le host de la partie. Impossible si la partie a déjà un host. |
+| `/uhc host config` | Ouvre le menu de configuration de la partie.                          |
+| `/uhc host start`  | Lance la partie. Ne peut être utilisée qu'une seule fois.             |
+
+## Commandes Hytale
+
+Le host peut aussi utiliser ces commandes de base de Hytale pour gérer les joueurs et le serveur.
+
+| Commande                      | Description                                                       |
+| ----------------------------- | ----------------------------------------------------------------- |
+| `/gamemode`                   | Change le mode de jeu d'un joueur.                                |
+| `/tp`                         | Téléporte un joueur vers un autre ou vers un point.               |
+| `/give`                       | Donne un objet à un joueur.                                       |
+| `/inventory clear`            | Vide l'inventaire d'un joueur.                                    |
+| `/kick`                       | Expulse un joueur du serveur.                                     |
+| `/kill`                       | Tue un joueur.                                                    |
+| `/world settings pregenerate` | Prégénère le monde autour de l'origine.                           |
+| `/world perf`                 | Affiche des informations de performance du monde.                 |
+| `/stop`                       | Arrête le serveur.                                                |
