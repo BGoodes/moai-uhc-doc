@@ -15,12 +15,19 @@ une partie, ce que le host a le droit de faire et quels outils sont réservés �
 | `uhc.host.start`         | Lancer la partie.                       |
 | `uhc.host.config`        | Modifier les réglages de la partie.     |
 
-## Les différents rôles
+## Groupes de permission
 
 ### Host
 
-Le host de la partie est le joueur qui l'a créée. Il peut modifier les réglages de la partie et la lancer. Il détient 
-les permissions configuré dans le fichier de configuration serveur du mod.
+Le host de la partie est le joueur qui a utilisé la commande `/uhc host claim`. Il rentre alors dans le groupe de permission `uhc:host`.
+Les permissions de ce groupe sont modifiables dans le fichier de configuration serveur du mod. Par défaut il peut modifier les réglages
+de la partie, lancer la partie et à accès diverses permissions pour gérer les joueurs.
 
-`uhc.game.host` est la seule permission à donner pour qu'un joueur puisse devenir host. Attribuez-la aux grades
-de votre choix avec votre plugin de permissions.
+`uhc.game.host` est la seule permission à donner pour qu'un joueur puisse devenir host. Attribuez-la aux membres pouvant héberger librement
+des parties. Les autres permissions sont réservées aux administrateurs du serveur.
+
+### Spectateur
+
+Un spectateur est un joueur qui n'est pas participant à la partie. Il peut se connecter au serveur mais sera contraint au 
+mode spectateur de Hytale. Il ne peut donc pas interagir avec le monde et ne peut pas participer à la partie. Il est possible
+de configurer les permissions des spectateurs dans le fichier de configuration serveur du mod.
